@@ -1,14 +1,10 @@
 import '../styles/style.scss'
 
-import {gsap} from 'gsap'
-
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
 import {
-  BlendFunction,
-  BloomEffect,
   EffectComposer,
   EffectPass,
   RenderPass,
@@ -27,10 +23,14 @@ import {
   DefaultLoadingManager,
   PMREMGenerator,
   SphereGeometry,
-  MeshBasicMaterial,
   Mesh,
   MeshStandardMaterial,
-  MeshPhysicalMaterial, ConeGeometry, PlaneGeometry, CameraHelper, MeshPhongMaterial, Box3, DoubleSide, CanvasTexture
+  MeshPhysicalMaterial,
+  ConeGeometry,
+  PlaneGeometry,
+  MeshPhongMaterial,
+  Box3,
+  CanvasTexture
 } from "three";
 import {RGBELoader} from "three/addons/loaders/RGBELoader.js";
 import { GUI } from 'dat.gui'
@@ -48,8 +48,6 @@ function load() {
   const dracoLoader = new DRACOLoader()
   dracoLoader.setDecoderPath('../draco/')
   gltfLoader.setDRACOLoader(dracoLoader)
-
-  const textureLoader = new TextureLoader()
 
   return new Promise((resolve, reject) => {
 
@@ -123,8 +121,6 @@ function initialize(assets) {
   scene.environment = new PMREMGenerator(renderer).fromCubemap(assets.get('inner-hdr')).texture
   scene.background = setBackgroundGradient('#ff0000','#0000ff')
 
-
-
   camera = new PerspectiveCamera(
     75,
     aspect,
@@ -153,11 +149,11 @@ function initialize(assets) {
       node.updateWorldMatrix()
       node.receiveShadow = true
       node.castShadow = true
-        node.material.envMapIntensity = .2
+      node.material.envMapIntensity = .2
     }
   });
 
-  //---------------------------------------------------------------------------------meshes-------------------------//
+  //---------------------------------------------------------------------------------meshes-------------------//
 
   const geometry = new SphereGeometry( 25, 64, 32 );
   const material = new MeshPhysicalMaterial({
@@ -195,7 +191,6 @@ function initialize(assets) {
   scene.add(floor)
 
   floor.receiveShadow = true
-
 
   //---------------------------------------------------------------------------------interactions-------------------//
 
