@@ -51,7 +51,7 @@ function load() {
 
   return new Promise((resolve, reject) => {
 
-    gltfLoader.load('public/models/roman_door_free.glb', gltf => {
+    gltfLoader.load('models/roman_door_free.glb', gltf => {
       assets.set('door', gltf.scene)
     })
 
